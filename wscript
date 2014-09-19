@@ -40,9 +40,6 @@ def configure_debug_native(conf):
 
 
 def configure(conf):
-    if not conf.env['root']:
-        conf.env['root'] = os.path.join(conf.path.abspath(), os.pardir,
-                                        os.pardir)
     with sub_conf(conf, 'network/release_emscripten'):
         configure_emscripten(conf)
     if not getattr(conf.options, 'emcc_only', False):
@@ -89,7 +86,7 @@ def build(bld):
         )
 
     if 'emscripten' in bld.variant:
-        header = os.path.join(bld.env['root'], 'network', 'src', 'ndl3.h')
+        header = os.path.join('src', 'ndl3.h')
 
         export_str = export_str_from_filenames([header])
 
